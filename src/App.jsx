@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import Chart from 'chart.js/auto';
+import Papa from 'papaparse';
 
-function App() {
-  const [count, setCount] = useState(0)
+function Dashboard() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('/public/prueba.csv');
+      const reader = response.body.getReader();
+      const result = await reader.read();
+      const csv = new TextDecoder().decode(result.value);
+      const parsed = Papa.parse(csv, { header: true });
+      setData(parsed.data);
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const labels = data.map(({ Alumno }) => Alumno);
+      const values = data.map(({ Nota }) => parseFloat(Nota));
+      const ctx = document.getElementById('chart').getContext('2d');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Notas',
+            data: values,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  }, [data]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>Dashboard</h1>
+      <canvas id="chart" width="400" height="200"></canvas>
+    </div>
+  );
 }
 
-export default App
+export default Dashboard;
