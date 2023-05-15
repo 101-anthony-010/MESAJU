@@ -1,58 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import Chart from 'chart.js/auto';
-import Papa from 'papaparse';
 
-function Dashboard() {
-  const [data, setData] = useState([]);
+import './index.css'
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('/public/prueba.csv');
-      const reader = response.body.getReader();
-      const result = await reader.read();
-      const csv = new TextDecoder().decode(result.value);
-      const parsed = Papa.parse(csv, { header: true });
-      setData(parsed.data);
-    }
+import { Route, Routes } from 'react-router-dom';
+import Login from './components/pages/Login';
+import Home from './components/pages/Home';
+import NotFound from './components/pages/NotFound';
+import Sales from './components/pages/Sales';
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (data.length > 0) {
-      const labels = data.map(({ Alumno }) => Alumno);
-      const values = data.map(({ Nota }) => parseFloat(Nota));
-      const ctx = document.getElementById('chart').getContext('2d');
-
-      new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels,
-          datasets: [{
-            label: 'Notas',
-            data: values,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-    }
-  }, [data]);
-
+function App() {
+  
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <canvas id="chart" width="400" height="200"></canvas>
-    </div>
+    <main className=''>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sales" element={<Sales />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+    </main>
   );
 }
 
-export default Dashboard;
+export default App;
