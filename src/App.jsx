@@ -10,7 +10,7 @@ import Sales from './components/pages/Sales';
 function App() {
   
   return (
-    <main className=''>
+    <main className='bg-slate-950 text-white'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sales" element={<Sales />} />
