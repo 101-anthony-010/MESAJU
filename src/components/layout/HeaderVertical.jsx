@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 const HeaderVertical = () => {
   return (
-    <section className='grid items-center justify-center text-3xl h-screen w-[65px] bg-slate-900 mx-1 rounded-lg'>
+    <section className='grid items-center justify-center text-3xl h-screen w-[100px] bg-black text-white'>
       <div className='border-b border-black pb-8 px-2'>
-        <i className='cursor-pointer bx bxs-castle'></i>
+        <img src="/public/images/mesaju.png" alt="" />
       </div>
       <div className='mx-auto'>
         <Link to='/'><span className="material-symbols-outlined text-4xl cursor-pointer">home</span></Link>

@@ -1,38 +1,102 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import HeaderHorizontal from '../layout/HeaderHorizontal'
-import HeaderVertical from '../layout/HeaderVertical'
-import ProductGrafic from '../data/ProductGrafic'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+
+// Slices 
+import { changeIsShowProducts, changeIsShowClients, changeIsShowSales } from '../../store/slices/showTable.slice.js'
+
+// Components
+import HeaderHorizontal from '../layout/HeaderHorizontal.jsx'
+import HeaderVertical from '../layout/HeaderVertical.jsx'
+import SalesTables from '../data/SalesTables.jsx' 
+import SalesTable from '../data/SalesTables.jsx'
+import ProductTable from '../data/ProductsTable.jsx'
 
 const Home = () => {
-  return (
-    <main className='grid grid-cols-[auto_1fr] gap-0 w-[100%]'>
-      <HeaderVertical/>
-      <div>
-        <HeaderHorizontal/>
-        <div className='flex flex-wrap gap-5 justify-center mt-5 relative'>
-          {/* <ProductGrafic/> */}
-          <section className='grid grid-cols-3 gap-10 w-full px-10'>
-            <div className='grid bg-slate-900 px-5 py-4 rounded-md'>
-              <h2 className='text-3xl font-semibold'>Enviados</h2>
-              <span className='text-2xl text-right'>50</span>
-            </div>
-            <div className='grid bg-slate-900 px-5 py-4 rounded-md'>
-              <h2 className='text-3xl font-semibold'>Pendientes</h2>
-              <span className='text-2xl text-right'>10</span>
-            </div>
-            <div className='grid bg-slate-900 px-5 py-4 rounded-md'>
-              <h2 className='text-3xl font-semibold'>Nuevas ordenes</h2>
-              <span className='text-2xl text-right'>40</span>
-            </div>
+const [clients, setClients] = useState([])
+const [sales, setSales] = useState([])
+const [products, setProducts] = useState([])
+
+const dispatch = useDispatch()
+
+const handleClickShowProducts = () => {
+  dispatch(changeIsShowProducts())
+}
+const handleClickShowClients = () => {
+  dispatch(changeIsShowClients())
+}
+const handleClickChangeShowSales = () => {
+  dispatch(changeIsShowSales())
+}
+
+useEffect(() => {
+  axios.get("http://localhost:3000/clients")
+    .then((res) => setClients(res.data))
+    .catch((err) => console.error(err))
+}, [])
+useEffect(() => {
+  axios.get("http://localhost:3000/sales")
+    .then((res) => setSales(res.data))
+    .catch((err) => console.error(err))
+}, [])
+useEffect(() => {
+  axios.get("http://localhost:3000/products")
+    .then((res) => setProducts(res.data))
+    .catch((err) => console.log(err))
+}, [])
+
+
+return (
+  <>
+      <div className=''>
+          <HeaderHorizontal/>
+        <div className='flex'>
+          <HeaderVertical/>
+        
+          <section className='grid grid-cols-2 w-[85%] justify-center gap-5 m-2'>
+            <section className=''>
+              <SalesTable/>
+            </section>
+            <section className='grid gap-2'>
+              <article onClick={handleClickChangeShowSales} className='hover:bg-blue-500/40 transition-all duration-300 hover:shadow-2xl cursor-pointer font-semibold text-3xl grid grid-cols-2 justify-center items-center text-center text-black rounded-md bg-gray-200'>
+                <h3 className='col-span-2'>Ventas del mes</h3>
+                <span></span>
+                <span className='font-bold text-2xl'>{sales.length}</span>
+              </article>
+              <article onClick={handleClickShowClients} className='hover:bg-blue-500/40 transition-all duration-300 hover:shadow-2xl cursor-pointer font-semibold text-3xl grid grid-cols-2 justify-center items-center text-center text-black rounded-md bg-gray-200'>
+                <h3 className='col-span-2'>Clientes</h3>
+                <span></span>
+                <span className='font-bold text-2xl'>{clients.length}</span>
+              </article>
+            </section>
+            <section className='col-span-2 mx-auto'>
+              <ProductTable/>
+            </section>
           </section>
-          <section className='grid gap-8 grid-cols-2 items-center justify-center'>
-            <div className='w-[420px] rounded-md h-[450px] bg-slate-900'>grafit</div>
-            <div className='w-[420px] rounded-md h-[450px] bg-slate-900'>grafit</div>
-          </section>
+
+          
         </div>
       </div>
-    </main>
+      {/* <SalesTables/>
+    <section className='justify-center mt-6 bg-white flex flex-wrap gap-6 mx-1'>
+      <article onClick={handleClickShowProducts} className='hover:bg-blue-500/40 transition-all duration-300 hover:shadow-2xl cursor-pointer font-semibold text-3xl grid grid-cols-2 justify-center items-center text-center text-black w-[280px] h-[140px] rounded-md bg-gray-200'>
+        <h3 className='col-span-2'>Productos</h3>
+        <span></span>
+        <span className='font-bold text-2xl'>{products.length}</span>
+      </article>
+      <article onClick={handleClickShowClients} className='hover:bg-blue-500/40 transition-all duration-300 hover:shadow-2xl cursor-pointer font-semibold text-3xl grid grid-cols-2 justify-center items-center text-center text-black w-[280px] h-[140px] rounded-md bg-gray-200'>
+        <h3 className='col-span-2'>Clientes</h3>
+        <span></span>
+        <span className='font-bold text-2xl'>{clients.length}</span>
+      </article>
+      <article onClick={handleClickChangeShowSales} className='hover:bg-blue-500/40 transition-all duration-300 hover:shadow-2xl cursor-pointer font-semibold text-3xl grid grid-cols-2 justify-center items-center text-center text-black w-[280px] h-[140px] rounded-md bg-gray-200'>
+        <h3 className='col-span-2'>Ventas</h3>
+        <span></span>
+        <span className='font-bold text-2xl'>{sales.length}</span>
+      </article>
+    </section> */}
+  </>
   )
 }
 
