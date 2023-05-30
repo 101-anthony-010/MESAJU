@@ -13,6 +13,7 @@ import ShowProducts from './components/homePage/ShowProducts';
 import ShowClients from './components/homePage/ShowClients';
 import ShowSales from './components/homePage/ShowSales';
 import Client from './components/pages/Client';
+import Predictive from './components/pages/Predictive';
 
 function App() {
   
@@ -31,6 +32,7 @@ function App() {
         <Route element={<ProtectedAuth/>}>
           <Route path="/" element={<Home />} />
           <Route path='/client/:id' element={<Client />} />
+          <Route path="/predictive" element={<Predictive />} />
           <Route path="/sales" element={<Sales />} />
         </Route>
 

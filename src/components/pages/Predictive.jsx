@@ -2,17 +2,17 @@ import React from 'react'
 import HeaderVertical from '../layout/HeaderVertical'
 import HeaderHorizontal from '../layout/HeaderHorizontal'
 
-const Sales = () => {
-  return (
-    <main className="">
+const Predictive = () => {
+    return (
+        <main className="">
         <HeaderHorizontal />
         <div className="flex">
           <HeaderVertical />
 
-          Sales
+          Predictive
         </div>
     </main>
-  )
+      )
 }
 
-export default Sales
+export default Predictive

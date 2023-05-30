@@ -1,13 +1,15 @@
-import React from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedAuth = () => {
-  const login = "admin"
-  if (login === "admin") {
-    return <Outlet/>
-  } else {
-    return <Navigate to="/login"/>
-  }
-}
+  const {isLoggedIn} = useSelector((state) => state.loginUserSlice);
 
-export default ProtectedAuth
+  if (isLoggedIn) {
+    return <Outlet />;
+  } else {
+    return <Navigate to="/login" />;
+  }
+};
+
+export default ProtectedAuth;

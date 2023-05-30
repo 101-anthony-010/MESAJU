@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeIsShowClients, changeIsShowSales } from '../../store/slices/showTable.slice.js';
 import HeaderHorizontal from '../layout/HeaderHorizontal.jsx';
 import HeaderVertical from '../layout/HeaderVertical.jsx';

@@ -11,7 +11,7 @@ const HeaderVertical = () => {
         <Link to='/'><span className="material-symbols-outlined text-4xl cursor-pointer">home</span></Link>
       </div>
       <div className='mx-auto'>
-        <i className='cursor-pointer bx bx-loader-circle'></i>
+        <Link to='/predictive'><i className='bx bx-timer cursor-pointer'></i></Link>
       </div>
       <div className='mx-auto'>
         <Link to='/sales'><i className='cursor-pointer bx bx-credit-card'></i></Link>
