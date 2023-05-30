@@ -52,6 +52,7 @@ const ProductTable = () => {
               font: {
                 size: 35,
                 weight: '600',
+                color: 'blue'
               },
             },
             legend: {
@@ -73,7 +74,7 @@ const ProductTable = () => {
   }, [products]);
 
   return (
-    <div className={``}>
+    <div className={`w-[400px]`}>
       <canvas ref={chartRef}></canvas>
     </div>
   );

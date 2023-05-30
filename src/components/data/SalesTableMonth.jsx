@@ -18,20 +18,20 @@ const SalesTable = () => {
   }, []);
 
   useEffect(() => {
-    const monthsDate = {};
+    const daysDate = {};
     const handleElement = elements => {
       const date = new Date(elements.date_sale);
-      const month = date.toLocaleString('default', { month: 'long' });
-      if (!monthsDate[month]) {
-        monthsDate[month] = 1;
+      const day = date.toLocaleString('default', { day: 'numeric' });
+      if (!daysDate[day]) {
+        daysDate[day] = 1;
       } else {
-        monthsDate[month]++;
+        daysDate[day]++;
       }
     };
     sales.forEach(handleElement);
     setCountMountDate(
-      Object.entries(monthsDate).map(([month, count]) => ({
-        month,
+      Object.entries(daysDate).map(([day, count]) => ({
+        day,
         count
       }))
     );
@@ -48,11 +48,11 @@ const SalesTable = () => {
       chartRef.current.chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: countMountDate.map(entry => entry.month),
+          labels: countMountDate.map(entry => entry.day),
           datasets: [
             {
               data: countMountDate.map(entry => entry.count),
-              lineTension: 0.2,
+              lineTension: 0.4,
               label: 'Cantidad de ventas'
             }
           ]
@@ -62,7 +62,7 @@ const SalesTable = () => {
           plugins: {
             title: {
               display: true,
-              text: 'Ventas del año',
+              text: 'Ventas por día',
               font: {
                 size: 35,
                 weight: '600'
@@ -87,7 +87,7 @@ const SalesTable = () => {
   }, [sales, countMountDate]);
 
   return (
-    <div className='w-[400px] h-full'>
+    <div className='p-10 w-full h-full'>
       <canvas ref={chartRef}></canvas>
     </div>
   );

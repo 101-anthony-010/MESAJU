@@ -8,7 +8,6 @@ import Home from './components/pages/Home';
 import NotFound from './components/pages/NotFound';
 import Sales from './components/pages/Sales';
 import ProtectedAuth from './components/auth/protectedAuth';
-import HeaderHorizontal from './components/layout/HeaderHorizontal';
 import ShowModalHorital from './components/layout/ShowModalHorital';
 import ShowProducts from './components/homePage/ShowProducts';
 import ShowClients from './components/homePage/ShowClients';

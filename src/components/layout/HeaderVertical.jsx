@@ -14,9 +14,6 @@ const HeaderVertical = () => {
         <i className='cursor-pointer bx bx-loader-circle'></i>
       </div>
       <div className='mx-auto'>
-        <i className='cursor-pointer bx bx-loader-circle'></i>
-      </div>
-      <div className='mx-auto'>
         <Link to='/sales'><i className='cursor-pointer bx bx-credit-card'></i></Link>
       </div>
       <div className='mx-auto'>
