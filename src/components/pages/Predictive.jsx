@@ -1,6 +1,8 @@
 import React from 'react'
 import HeaderVertical from '../layout/HeaderVertical'
 import HeaderHorizontal from '../layout/HeaderHorizontal'
+import SaleMount from '../predictivePage/saleMount'
+import PredictiveTable from '../data/PredictiveTable'
 
 const Predictive = () => {
     return (
@@ -9,7 +11,7 @@ const Predictive = () => {
         <div className="flex">
           <HeaderVertical />
 
-          Predictive
+          <PredictiveTable/>
         </div>
     </main>
       )
